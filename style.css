@@ -1,0 +1,42 @@
+body {
+    background: #f8fafb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.navbar .navbar-brand {
+    letter-spacing: 1px;
+    font-size: 1.4rem;
+}
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(90deg, #0a4275 0%, #0066cc 100%);
+}
+#mainContent {
+    min-height: 70vh;
+}
+.card {
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.form-label.required:after {
+    content:" *";
+    color: #d41515;
+    font-weight: bold;
+}
+select, input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea {
+    border-radius: 0.5rem;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background: #e3e7ea;
+}
+::-webkit-scrollbar-thumb {
+    background: #0066cc;
+    border-radius: 5px;
+}
+#loader {
+    min-height: 40vh;
+}
