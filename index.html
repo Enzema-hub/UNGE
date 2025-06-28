@@ -12,13 +12,45 @@
         .mt-4 { margin-top: 1.5rem !important; }
         .mb-3 { margin-bottom: 1rem !important; }
         .pointer { cursor: pointer; }
+        .nav-pills .nav-link.active {
+            background-color: #0d6efd;
+        }
+        footer {
+            background: linear-gradient(90deg, #1959a7 0%, #10b981 100%);
+            color: #fff;
+            padding: 30px 0 20px 0;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.09);
+        }
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 0.7rem;
+        }
+        .footer-quote {
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #e5e5e5;
+            opacity: 0.92;
+        }
+        .footer-logo {
+            width: 38px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .footer-dev {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #d7ffec;
+        }
     </style>
 </head>
 <body class="bg-light">
 
     <div class="container mt-4">
-
-        <!-- Título -->
         <div class="text-center mb-4">
             <h1 class="display-5 fw-bold text-primary">UNGE - Gestión Universitaria</h1>
             <h2 class="h5 text-secondary">CAMPUS CENTRAL | CAMPUS 2 | CAMPUS 3</h2>
@@ -91,7 +123,6 @@
                                             <option value="jefe_adjunto_dpto">Jefe Adjunto de Departamento</option>
                                         </select>
                                     </div>
-                                    <!-- Campos dinámicos adicionales según rol -->
                                     <div id="dynamicFields"></div>
                                     <button type="submit" class="btn btn-success w-100 mt-2">Registrarse</button>
                                 </form>
@@ -116,9 +147,16 @@
                     </div>
                 </div>
             </div>
-            <!-- Panel de módulos -->
             <div class="row gy-3" id="modules-panel">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Gestión de Usuarios</h5>
+                            <button class="btn btn-dark w-100" id="btnGestionUsuarios">Panel de Usuarios</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">Facultades y Carreras</h5>
@@ -126,59 +164,77 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Departamentos</h5>
-                            <button class="btn btn-primary w-100" id="btnDepartamentos">Gestionar Departamentos</button>
+                            <h5 class="card-title">Matrícula</h5>
+                            <button class="btn btn-primary w-100" id="btnMatricula">Gestionar Matrícula</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Tablón de Anuncios</h5>
-                            <button class="btn btn-primary w-100" id="btnAnuncios">Ver Anuncios</button>
+                            <h5 class="card-title">Anuncios</h5>
+                            <button class="btn btn-primary w-100" id="btnAnuncios">Tablón de Anuncios</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="profesorModulePanel" style="display:none">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Panel de Materias</h5>
+                            <button class="btn btn-primary w-100" id="btnMateriasProfesor">Administrar Materias</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="estudianteModulePanel" style="display:none">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Tareas y Materias</h5>
+                            <button class="btn btn-primary w-100" id="btnTareasEstudiante">Ver Tareas</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="adminModulePanel" style="display:none">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Administración</h5>
+                            <button class="btn btn-warning w-100" id="btnAdministracion">Administrar Archivos</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Módulo infórmate -->
+                <div class="col-md-4">
+                    <div class="card h-100 border-success">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">Infórmate</h5>
+                            <button class="btn btn-outline-success w-100" id="btnInformate">Sobre la aplicación</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Módulo dinámico -->
             <div id="module-content" class="mt-4"></div>
         </div>
     </div>
-<!-- Botón en el panel de módulos solo visible para profesores -->
-<div class="col-md-4" id="profesorModulePanel" style="display:none">
-    <div class="card h-100">
-        <div class="card-body">
-            <h5 class="card-title">Panel de Materias</h5>
-            <button class="btn btn-primary w-100" id="btnMateriasProfesor">Administrar Materias</button>
-        </div>
-    </div>
-</div>
 
-<!-- Botón en el panel de módulos solo visible para estudiantes -->
-<div class="col-md-4" id="estudianteModulePanel" style="display:none">
-    <div class="card h-100">
-        <div class="card-body">
-            <h5 class="card-title">Tareas y Materias</h5>
-            <button class="btn btn-primary w-100" id="btnTareasEstudiante">Ver Tareas</button>
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-title">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Flag_of_Equatorial_Guinea.svg/40px-Flag_of_Equatorial_Guinea.svg.png" class="footer-logo" alt="Guinea Ecuatorial">
+            ¡El futuro educativo de Guinea Ecuatorial comienza hoy!
+        </span>
+        <div class="footer-quote">
+            "Construyamos juntos una nación de excelencia académica, innovación y progreso.<br>
+            Tu formación, nuestro compromiso. ¡UNGE, forjando líderes para el éxito del mañana!"
         </div>
-    </div>
-</div>
-
-<!-- Botón en el panel de módulos para matrícula -->
-<div class="col-md-4">
-    <div class="card h-100">
-        <div class="card-body">
-            <h5 class="card-title">Matrícula de Estudiantes</h5>
-            <button class="btn btn-primary w-100" id="btnMatricula">Gestionar Matrícula</button>
+        <div class="footer-dev">
+            Plataforma desarrollada para la juventud y la prosperidad educativa de Guinea Ecuatorial.
         </div>
-    </div>
-    </div>
-    <!-- Bootstrap JS y dependencias -->
+    </footer>
+    <!-- jsPDF para comprobante de matrícula PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- App JS -->
     <script src="app.js"></script>
 </body>
-</html>
+    </html>
