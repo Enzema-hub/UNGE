@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>UNGE Gestión Universitaria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden { display: none !important; }
+        .mt-2 { margin-top: 0.5rem !important; }
+        .mt-4 { margin-top: 1.5rem !important; }
+        .mb-3 { margin-bottom: 1rem !important; }
+        .pointer { cursor: pointer; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="container mt-4">
+
+        <!-- Título -->
+        <div class="text-center mb-4">
+            <h1 class="display-5 fw-bold text-primary">UNGE - Gestión Universitaria</h1>
+            <h2 class="h5 text-secondary">CAMPUS CENTRAL | CAMPUS 2 | CAMPUS 3</h2>
+        </div>
+
+        <!-- Registro / Login -->
+        <div id="auth-section" class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="tab-auth" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Iniciar Sesión</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Registrarse</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="tab-auth-content">
+                            <!-- Login -->
+                            <div class="tab-pane fade show active pt-3" id="login" role="tabpanel">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label for="loginEmail" class="form-label">Correo Gmail</label>
+                                        <input type="email" class="form-control" id="loginEmail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginPassword" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="loginPassword" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                                </form>
+                            </div>
+                            <!-- Registro -->
+                            <div class="tab-pane fade pt-3" id="register" role="tabpanel">
+                                <form id="registerForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nombre Completo</label>
+                                        <input type="text" class="form-control" id="registerName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Correo Electrónico (Gmail)</label>
+                                        <input type="email" class="form-control" id="registerEmail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="registerPassword" required>
+                                        <div class="form-text">
+                                            12 dígitos: 6 letras iniciales (primera mayúscula), 4 números y 2 símbolos (@ # &).
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Sexo</label>
+                                        <select class="form-select" id="registerGender" required>
+                                            <option value="">Selecciona</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Rol</label>
+                                        <select class="form-select" id="registerRole" required>
+                                            <option value="">Selecciona</option>
+                                            <option value="rector">Rector</option>
+                                            <option value="decano">Decano de Facultad</option>
+                                            <option value="profesor">Profesor</option>
+                                            <option value="estudiante">Estudiante</option>
+                                            <option value="secretario">Secretario/a</option>
+                                            <option value="jefe_dpto">Jefe de Departamento</option>
+                                            <option value="jefe_adjunto_dpto">Jefe Adjunto de Departamento</option>
+                                        </select>
+                                    </div>
+                                    <!-- Campos dinámicos adicionales según rol -->
+                                    <div id="dynamicFields"></div>
+                                    <button type="submit" class="btn btn-success w-100 mt-2">Registrarse</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="authError" class="alert alert-danger mt-3 d-none"></div>
+                        <div id="authSuccess" class="alert alert-success mt-3 d-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interfaz principal -->
+        <div id="main-section" class="hidden">
+            <div class="card shadow mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span id="welcomeMsg" class="fw-bold fs-5"></span>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm" id="btnLogout">Cerrar sesión</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Panel de módulos -->
+            <div class="row gy-3" id="modules-panel">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Facultades y Carreras</h5>
+                            <button class="btn btn-primary w-100" id="btnFacultades">Gestionar Facultades</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Departamentos</h5>
+                            <button class="btn btn-primary w-100" id="btnDepartamentos">Gestionar Departamentos</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Tablón de Anuncios</h5>
+                            <button class="btn btn-primary w-100" id="btnAnuncios">Ver Anuncios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Módulo dinámico -->
+            <div id="module-content" class="mt-4"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- App JS -->
+    <script src="app.js"></script>
+</body>
+</html>
